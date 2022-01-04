@@ -10,3 +10,9 @@ target_link_libraries(vramvnc im vncserver pthread z png jpeg ssl crypto gm)
 set(CMAKE_INSTALL_RPATH $ORIGIN)
 add_executable(webos-vncserver src/webos-vncserver.c src/uinput.c src/capture_gm.c)
 target_link_libraries(webos-vncserver im vncserver pthread z png jpeg ssl crypto halgal gm)
+
+set_target_properties(webos-vncserver PROPERTIES
+    BUILD_RPATH_USE_ORIGIN ON
+    INSTALL_RPATH "$ORIGIN:$ORIGIN/lib"
+    BUILD_RPATH "$ORIGIN:$ORIGIN/lib"
+)
