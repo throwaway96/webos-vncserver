@@ -136,7 +136,6 @@ void ptr_abs(int x, int y, int p) {
 		write(fd, &ev, sizeof(ev));
 
 		if (p & 0x08 || p & 0x10) {
-			fprintf(stderr, "wheeling! %08x\n", p);
 			// Scroll wheel
 			ev.type = EV_REL;
 			ev.code = REL_WHEEL;
