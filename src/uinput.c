@@ -62,6 +62,7 @@ int initialize_uinput(void)
 	ioctl(fd, UI_SET_KEYBIT, BTN_RIGHT);
 	ioctl(fd, UI_SET_KEYBIT, BTN_FORWARD);
 	ioctl(fd, UI_SET_KEYBIT, BTN_BACK);
+	ioctl(fd, UI_SET_KEYBIT, KEY_PREVIOUS);
 
 
 	//if (uinput_touchscreen) {
@@ -145,7 +146,12 @@ void ptr_abs(int x, int y, int p) {
 			// Mouse button
 			ev.type = EV_KEY;
 			ev.code = BTN_LEFT;
-			ev.value = p & 1;
+			ev.value = p & 0x01;
+			write(fd, &ev, sizeof(ev));
+
+			ev.type = EV_KEY;
+			ev.code = KEY_PREVIOUS;
+			ev.value = p & 0x04;
 			write(fd, &ev, sizeof(ev));
 		}
 	}

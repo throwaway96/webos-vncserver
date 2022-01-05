@@ -15,13 +15,16 @@ Here it is, running on a "headless" TV motherboard, being accessed via a VNC mob
 
 ![Demo](./img/demo.jpg?raw=true)
 
-# Caveats
+## Keybindings
 
+- SUPER ("Windows") button is HOME
+- Right mouse button is BACK
+- Mouse scroll should properly be interpreted as scrollwheel
+
+# Caveats
 - This does not capture any hardware-accelerated video surfaces, only the UI layers.
 
-
 # Compiling
-
 To cross-compile for WebOS, you will need an NDK: https://github.com/webosbrew/meta-lg-webos-ndk
 
 ```sh
