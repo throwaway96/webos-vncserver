@@ -1,0 +1,10 @@
+{
+  "id" : "org.webosbrew.vncserver.service",
+  "description":"webOS TV VNC Server",
+  "engine":"native",
+  "executable":"webos-vncserver",
+  "services": [ {
+    "name": "org.webosbrew.vncserver.service",
+    "description": "webOS TV VNC Server"
+  }]
+}

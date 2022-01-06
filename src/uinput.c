@@ -101,7 +101,6 @@ int initialize_uinput(void)
 
 // x11vnc/src/uinput.c
 void shutdown_uinput(void) {
-	printf("Shutting down uinput...\n");
 	if (fd >= 0) {
 		ioctl(fd, UI_DEV_DESTROY);
 		close(fd);

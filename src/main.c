@@ -3,9 +3,11 @@
 #include "service.h"
 #include "log.h"
 
-static gboolean server_frame_handler(gpointer data) {
-	server_t* server = (server_t*) data;
-	return server->running && server_update(data) == 0;
+GMainLoop* loop;
+
+void int_handler(int dummy) {
+	INFO("SIGINT detected, stopping...");
+	g_main_loop_quit(loop);
 }
 
 int main (int argc, char** argv) {
@@ -15,22 +17,30 @@ int main (int argc, char** argv) {
 	server.running = false;
 
 	settings_t settings;
-	GMainLoop* loop = g_main_loop_new(NULL, FALSE);
+	loop = g_main_loop_new(NULL, FALSE);
 
+	settings.framerate = 30;
 	settings.width = 1920/4;
 	settings.height = 1080/4;
-	settings.password = "dupa.8";
+	settings.password = strdup("password");
 
 	log_init();
 
-	if ((ret = service_init(loop)) != 0) {
+	INFO("Starting up service...");
+
+	if ((ret = service_init(loop, &server, &settings)) != 0) {
 		WARN("service_init() failed: %d", ret);
 	}
 
-	server_start(&server, &settings);
+	if (!getenv("LS_SERVICE_NAMES")) {
+		INFO("Running via CLI - starting anyway");
+		server_start(&server, &settings);
+		server_bind_gmainloop(&server);
+		signal(SIGINT, int_handler);
+	}
 
-	INFO("Adding timeout...");
-	g_timeout_add(1000 / 30, server_frame_handler, (gpointer) &server);
+	// INFO("Adding timeout...");
+	// g_timeout_add(1000 / 30, server_frame_handler, (gpointer) &server);
 
 	INFO("Starting main loop...");
 
@@ -39,6 +49,9 @@ int main (int argc, char** argv) {
 	INFO("loop finished!");
     g_main_loop_unref(loop);
 
-	server_stop(&server);
+	if (server.running) {
+		server_stop(&server);
+	}
+
 	return 0;
 }

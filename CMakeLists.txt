@@ -9,6 +9,11 @@ target_link_libraries(vramvnc im vncserver pthread z png jpeg ssl crypto gm)
 
 # ------
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/service)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/service)
+configure_file("${CMAKE_SOURCE_DIR}/services.json" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/services.json" COPYONLY)
+configure_file("$ENV{PKG_CONFIG_SYSROOT_DIR}/usr/lib/libjpeg.so.62.2.0" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libjpeg.so.62" COPYONLY)
+
 find_package(PkgConfig REQUIRED)
 include(FindPkgConfig)
 

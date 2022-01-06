@@ -25,8 +25,10 @@ unsigned int nativeheight = 1080;
 
 #define FBSIZE (screenwidth * screenheight * bpp)
 
-int running = 1;
-int activeClients = 0;
+static gboolean server_frame_handler(gpointer data) {
+	server_t* server = (server_t*) data;
+	return server->running && server_update(data) == 0;
+}
 
 int capture_backend_load(capture_backend_t* backend, const char* name) {
 	void* handle;
@@ -74,10 +76,6 @@ int capture_backend_init(capture_backend_t* backend, uint32_t width, uint32_t he
 	return -1;
 }
 
-void intHandler(int dummy) {
-	running = 0;
-}
-
 static void server_client_gone(rfbClientPtr cl) {
 	server_t* server = (server_t*) cl->screen->screenData;
 
@@ -121,6 +119,8 @@ int server_start(server_t* server, settings_t* settings) {
 	rfbScreenInfoPtr screen = rfbGetScreen(NULL, NULL, settings->width, settings->height, 8, 3, bpp);
 	assert(screen != NULL);
 
+	server->active_clients = 0;
+	server->settings = settings;
 	server->screen = screen;
 	screen->screenData = (void*) server;
 
@@ -155,7 +155,13 @@ int server_start(server_t* server, settings_t* settings) {
 
 	INFO("VNC server running on %d", screen->port);
 
+	server->running = true;
+
 	return 0;
+}
+
+void server_bind_gmainloop(server_t* server) {
+	server->timeout_ref = g_timeout_add(1000 / server->settings->framerate, server_frame_handler, (gpointer) server);
 }
 
 int server_update(server_t* server) {
@@ -175,6 +181,9 @@ int server_update(server_t* server) {
 
 
 int server_stop(server_t* server) {
+	INFO("Shutting down...");
+	g_source_remove(server->timeout_ref);
+	server->running = false;
 	server->capture.destroy();
 	rfbShutdownServer(server->screen, TRUE);
 	free(server->screen->frameBuffer);

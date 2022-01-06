@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <rfb/rfb.h>
+#include <glib.h>
 #include "settings.h"
 
 typedef struct _capture_backend {
@@ -17,8 +18,11 @@ typedef struct {
 	int active_clients;
 	settings_t* settings;
 	bool running;
+
+	guint timeout_ref;
 } server_t;
 
 int server_start(server_t* server, settings_t* settings);
 int server_stop(server_t* server);
 int server_update(server_t* server);
+void server_bind_gmainloop(server_t* server);

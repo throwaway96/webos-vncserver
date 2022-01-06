@@ -28,7 +28,7 @@ Here it is, running on a "headless" TV motherboard, being accessed via a VNC mob
 To cross-compile for WebOS, you will need an NDK: https://github.com/webosbrew/meta-lg-webos-ndk
 
 ```sh
-rm -rf build && mkdir build && cd build && cmake .. && cmake --build . --target webos-vncserver
+mkdir -p build && cd build && cmake .. && cmake --build . --target webos-vncserver --target capture_gm --target capture_halgal
 ```
 
-You should have produced a `webos-vncserver` binary. Copy it over to your TV and run it as root!
+This should have produced a `build/service/` directory. Copy it over to your TV and run `./webos-vncserver` as root!
