@@ -6,6 +6,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <linux/input.h>
+#include <dlfcn.h>
 #include <errno.h>
 #include <stdio.h>
 #include <signal.h>
@@ -24,6 +25,58 @@ unsigned int nativeheight = 1080;
 
 int running = 1;
 int activeClients = 0;
+
+typedef struct _capture_backend {
+	char* name;
+	int (*init)(uint32_t width, uint32_t height);
+	int (*execute)(uint8_t* target, uint32_t size);
+	int (*destroy)(void);
+} capture_backend_t;
+
+int capture_backend_load(capture_backend_t* backend, const char* name) {
+	void* handle;
+
+	handle = dlopen(name, RTLD_NOW);
+
+	if (handle == NULL) {
+		fprintf(stderr, "Failed to load %s: %s\n", name, dlerror());
+		return -1;
+	}
+
+	backend->name = name;
+	backend->init = dlsym(handle, "capture_init");
+	backend->execute = dlsym(handle, "capture_execute");
+	backend->destroy = dlsym(handle, "capture_destroy");
+
+	return 0;
+}
+
+int capture_backend_init(capture_backend_t* backend, uint32_t width, uint32_t height) {
+	int ret;
+
+	if ((ret = capture_backend_load(backend, "libcapture_halgal.so")) != 0) {
+		fprintf(stderr, "%s load failed: %d\n", "libcapture_halgal", ret);
+	} else {
+		if ((ret = backend->init(width, height)) != 0) {
+			fprintf(stderr, "%s init failed: %d\n", "libcapture_halgal", ret);
+		} else {
+			return 0;
+		}
+	}
+
+	if ((ret = capture_backend_load(backend, "libcapture_gm.so")) != 0) {
+		fprintf(stderr, "%s load failed: %d\n", "libcapture_gm", ret);
+	} else {
+		if ((ret = backend->init(width, height)) != 0) {
+			fprintf(stderr, "%s init failed: %d\n", "libcapture_gm", ret);
+		} else {
+			return 0;
+		}
+	}
+
+	fprintf(stderr, "No eligible backend found...\n");
+	return -1;
+}
 
 void intHandler(int dummy) {
 	running = 0;
@@ -51,6 +104,7 @@ static void ptrevent(int buttonMask, int x, int y, rfbClientPtr cl) {
 
 int main(int argc, char *argv[]) {
 	int ret;
+	capture_backend_t capture;
 
 	if (argc > 1) {
 		screenwidth = strtoul(argv[1], NULL, 0);
@@ -61,7 +115,8 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	if ((ret = capture_init(screenwidth, screenheight)) != 0) {
+	if ((ret = capture_backend_init(&capture, screenwidth, screenheight)) != 0) {
+		fprintf(stderr, "capture_init() failed: %d\n", ret);
 		return -2;
 	}
 
@@ -103,7 +158,7 @@ int main(int argc, char *argv[]) {
 
 	while (running) {
 		if (activeClients > 0) {
-			if ((ret = capture_execute(framebuffer, FBSIZE)) != 0) {
+			if ((ret = capture.execute(framebuffer, FBSIZE)) != 0) {
 				fprintf(stderr, "capture failed: %08x\n", ret);
 				return -5;
 			}
@@ -116,7 +171,7 @@ int main(int argc, char *argv[]) {
 
 	printf("\nCleaning up...\n");
 
-	capture_destroy();
+	capture.destroy();
 	rfbShutdownServer(screen, TRUE);
 	rfbScreenCleanup(screen);
 	shutdown_uinput();
