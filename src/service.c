@@ -91,14 +91,7 @@ bool method_configure(LSHandle *sh, LSMessage *message, void *data) {
 		server_stop(server_p);
 	}
 
-	jvalue_ref value;
-	if ((value = jobject_get(parsed, j_cstr_to_buffer("width"))) && jis_number(value)) jnumber_get_i32(value, &settings_p->width);
-	if ((value = jobject_get(parsed, j_cstr_to_buffer("height"))) && jis_number(value)) jnumber_get_i32(value, &settings_p->height);
-	if ((value = jobject_get(parsed, j_cstr_to_buffer("framerate"))) && jis_number(value)) jnumber_get_i32(value, &settings_p->framerate);
-	if ((value = jobject_get(parsed, j_cstr_to_buffer("password"))) && jis_string(value)) {
-		free(settings_p->password);
-		settings_p->password = jstring_get(value).m_str;
-	}
+	settings_load_json(settings_p, parsed);
 
 	INFO("settings: %dx%d - password: %s", settings_p->width, settings_p->height, settings_p->password);
 
@@ -124,6 +117,8 @@ bool method_configure(LSHandle *sh, LSMessage *message, void *data) {
 		jobject_set(jobj, j_cstr_to_buffer("message"), jstring_create("Reconfigured"));
 	}
 
+	settings_save_file(settings_p, SETTINGS_PERSISTENCE_PATH);
+
 	LSMessageReply(sh, message, jvalue_tostring_simple(jobj), &lserror);
 	j_release(&jobj);
 
@@ -143,6 +138,10 @@ bool method_status(LSHandle *sh, LSMessage *message, void *data) {
 	jobject_set(jobj, j_cstr_to_buffer("returnValue"), jboolean_create(TRUE));
 	jobject_set(jobj, j_cstr_to_buffer("running"), jboolean_create(server_p->running));
 	jobject_set(jobj, j_cstr_to_buffer("activeClients"), jnumber_create_i32(server_p->active_clients));
+
+	jvalue_ref settings_obj = jobject_create();
+	settings_save_json(settings_p, settings_obj);
+	jobject_set(jobj, j_cstr_to_buffer("settings"), settings_obj);
 
 	LSMessageReply(sh, message, jvalue_tostring_simple(jobj), &lserror);
 	j_release(&jobj);

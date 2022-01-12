@@ -14,6 +14,7 @@ int main (int argc, char** argv) {
 	int ret;
 
 	server_t server;
+	server.active_clients = 0;
 	server.running = false;
 
 	settings_t settings;
@@ -23,6 +24,8 @@ int main (int argc, char** argv) {
 	settings.width = 1920/4;
 	settings.height = 1080/4;
 	settings.password = strdup("password");
+
+	INFO("Config load result: %d", settings_load_file(&settings, SETTINGS_PERSISTENCE_PATH));
 
 	log_init();
 
