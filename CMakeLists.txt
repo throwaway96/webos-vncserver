@@ -5,7 +5,7 @@ add_subdirectory(prebuilt)
 add_subdirectory(tv-native-apis)
 
 add_executable(vramvnc src/vramvnc.c src/uinput.c)
-target_link_libraries(vramvnc im vncserver pthread z png jpeg ssl crypto gm)
+target_link_libraries(vramvnc im vncserver pthread z png jpeg ssl crypto gm rt)
 
 # ------
 
@@ -13,7 +13,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/service)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/service)
 configure_file("${CMAKE_SOURCE_DIR}/services.json" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/services.json" COPYONLY)
 configure_file("${CMAKE_SOURCE_DIR}/autostart.sh" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/autostart.sh" COPYONLY)
-configure_file("$ENV{PKG_CONFIG_SYSROOT_DIR}/usr/lib/libjpeg.so.62.2.0" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libjpeg.so.62" COPYONLY)
+configure_file("$ENV{STAGING_DIR}/usr/lib/libjpeg.so.8.2.2" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libjpeg.so.8" COPYONLY)
 
 find_package(PkgConfig REQUIRED)
 include(FindPkgConfig)
@@ -37,7 +37,7 @@ add_executable(webos-vncserver
     src/uinput.c
     src/log.c
 )
-target_link_libraries(webos-vncserver im vncserver pthread z png jpeg ssl crypto dl ${LS2_LDFLAGS} ${PBNJSON_LDFLAGS} ${GLIB2_LDFLAGS} ${PMLOG_LDFLAGS})
+target_link_libraries(webos-vncserver im vncserver pthread z png jpeg ssl crypto dl ${LS2_LDFLAGS} ${PBNJSON_LDFLAGS} ${GLIB2_LDFLAGS} ${PMLOG_LDFLAGS} rt)
 
 set_target_properties(webos-vncserver PROPERTIES
     BUILD_RPATH_USE_ORIGIN ON

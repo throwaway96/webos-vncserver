@@ -8,7 +8,8 @@ pkg_check_modules(ZLIB REQUIRED IMPORTED_TARGET zlib)
 # Yocto/NDK-related bugs these need to be manually passed in :/
 ExternalProject_Add(
   LibVNCServer
-  URL https://github.com/LibVNC/libvncserver/archive/0b8990784a81823eecc9089263ac1966d17bf399.tar.gz
+  GIT_REPOSITORY https://github.com/LibVNC/libvncserver
+  GIT_TAG 0b8990784a81823eecc9089263ac1966d17bf399
   CMAKE_ARGS  "-DWITH_TESTS=OFF" "-DWITH_EXAMPLES=OFF" "-DBUILD_SHARED_LIBS=OFF" "-DWITH_SYSTEMD=OFF"
   "-DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_SOURCE_DIR}"
   "-DJPEG_LIBRARY=${JPEG_LIBRARIES}" "-DJPEG_INCLUDE_DIR=$ENV{PKG_CONFIG_SYSROOT_DIR}/${JPEG_INCLUDEDIR}"

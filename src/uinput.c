@@ -1,8 +1,6 @@
 #include <sys/ioctl.h>
 #include <linux/input.h>
 #include <linux/uinput.h>
-#include <X11/X.h>
-#include <X11/keysym.h>
 #include <sys/time.h>
 #include <unistd.h>
 #include <string.h>
@@ -11,7 +9,9 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-
+#define XK_LATIN1
+#define XK_MISCELLANY
+#include "keysymdef.h"
 #include "uinput.h"
 #include <im.h>
 
@@ -192,7 +192,7 @@ void uinput_key_command(int down, int keysym) {
 // x11vnc/src/uinput.c
 int lookup_code(int keysym) {
 
-	if (keysym == NoSymbol) {
+	if (keysym == 0) {
 		return -1;
 	}
 
