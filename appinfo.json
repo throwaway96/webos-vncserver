@@ -1,0 +1,10 @@
+{
+  "type": "web",
+  "vendor": "webosbrew",
+  "main": "index.html",
+  "title": "VNCServer",
+  "icon": "icon.png",
+  "largeIcon": "largeIcon.png",
+  "iconColor": "#ffb80d",
+  "disableBackHistoryAPI": true
+}

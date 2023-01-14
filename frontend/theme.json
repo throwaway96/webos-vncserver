@@ -1,0 +1,466 @@
+{
+  "name": "my theme",
+  "rounding": 8,
+  "spacing": 32,
+  "defaultMode": "light",
+  "global": {
+    "colors": {
+      "brand": {
+        "dark": "#f93881",
+        "light": "#f93881"
+      },
+      "background": {
+        "dark": "#111111",
+        "light": "#FFFFFF"
+      },
+      "background-back": {
+        "dark": "#111111",
+        "light": "#EEEEEE"
+      },
+      "background-front": {
+        "dark": "#222222",
+        "light": "#FFFFFF"
+      },
+      "background-contrast": {
+        "dark": "#FFFFFF11",
+        "light": "#11111111"
+      },
+      "text": {
+        "dark": "#EEEEEE",
+        "light": "#333333"
+      },
+      "text-strong": {
+        "dark": "#FFFFFF",
+        "light": "#000000"
+      },
+      "text-weak": {
+        "dark": "#CCCCCC",
+        "light": "#444444"
+      },
+      "text-xweak": {
+        "dark": "#999999",
+        "light": "#666666"
+      },
+      "border": {
+        "dark": "#444444",
+        "light": "#CCCCCC"
+      },
+      "control": "brand",
+      "active-background": "background-contrast",
+      "active-text": "text-strong",
+      "selected-background": "brand",
+      "selected-text": "text-strong",
+      "status-critical": "#FF4040",
+      "status-warning": "#FFAA15",
+      "status-ok": "#00C781",
+      "status-unknown": "#CCCCCC",
+      "status-disabled": "#CCCCCC",
+      "graph-0": "brand",
+      "graph-1": "status-warning",
+      "focus": "brand"
+    },
+    "font": {
+      "family": "Helvetica",
+      "size": "24px",
+      "height": "32px",
+      "maxWidth": "768px"
+    },
+    "active": {
+      "background": "active-background",
+      "color": "active-text"
+    },
+    "hover": {
+      "background": "active-background",
+      "color": "active-text"
+    },
+    "selected": {
+      "background": "selected-background",
+      "color": "selected-text"
+    },
+    "borderSize": {
+      "xsmall": "1px",
+      "small": "2px",
+      "medium": "5px",
+      "large": "16px",
+      "xlarge": "32px"
+    },
+    "breakpoints": {
+      "small": {
+        "value": 1024,
+        "borderSize": {
+          "xsmall": "1px",
+          "small": "2px",
+          "medium": "5px",
+          "large": "8px",
+          "xlarge": "16px"
+        },
+        "edgeSize": {
+          "none": "0px",
+          "hair": "1px",
+          "xxsmall": "2px",
+          "xsmall": "4px",
+          "small": "8px",
+          "medium": "16px",
+          "large": "32px",
+          "xlarge": "64px"
+        },
+        "size": {
+          "xxsmall": "32px",
+          "xsmall": "64px",
+          "small": "128px",
+          "medium": "256px",
+          "large": "512px",
+          "xlarge": "1024px",
+          "full": "100%"
+        }
+      },
+      "medium": {
+        "value": 2048
+      },
+      "large": {}
+    },
+    "edgeSize": {
+      "none": "0px",
+      "hair": "1px",
+      "xxsmall": "4px",
+      "xsmall": "8px",
+      "small": "16px",
+      "medium": "32px",
+      "large": "64px",
+      "xlarge": "128px",
+      "responsiveBreakpoint": "small"
+    },
+    "input": {
+      "padding": "16px",
+      "weight": 600
+    },
+    "spacing": "32px",
+    "size": {
+      "xxsmall": "64px",
+      "xsmall": "128px",
+      "small": "256px",
+      "medium": "512px",
+      "large": "1024px",
+      "xlarge": "1536px",
+      "xxlarge": "2048px",
+      "full": "100%"
+    },
+    "control": {
+      "border": {
+        "radius": "8px"
+      }
+    },
+    "drop": {
+      "border": {
+        "radius": "8px"
+      }
+    }
+  },
+  "chart": {},
+  "diagram": {
+    "line": {}
+  },
+  "meter": {},
+  "tip": {
+    "content": {
+      "background": {
+        "color": "background"
+      },
+      "elevation": "none",
+      "round": false
+    }
+  },
+  "scale": 1,
+  "button": {
+    "border": {
+      "width": "2px",
+      "radius": "24px"
+    },
+    "padding": {
+      "vertical": "6px",
+      "horizontal": "30px"
+    }
+  },
+  "calendar": {
+    "small": {
+      "fontSize": "18.666666666666668px",
+      "lineHeight": 1.375,
+      "daySize": "36.57px"
+    },
+    "medium": {
+      "fontSize": "24px",
+      "lineHeight": 1.45,
+      "daySize": "73.14px"
+    },
+    "large": {
+      "fontSize": "40px",
+      "lineHeight": 1.11,
+      "daySize": "146.29px"
+    }
+  },
+  "checkBox": {
+    "size": "32px",
+    "toggle": {
+      "radius": "32px",
+      "size": "64px"
+    },
+    "check": {
+      "radius": "8px"
+    }
+  },
+  "clock": {
+    "analog": {
+      "hour": {
+        "width": "11px",
+        "size": "32px"
+      },
+      "minute": {
+        "width": "5px",
+        "size": "16px"
+      },
+      "second": {
+        "width": "4px",
+        "size": "12px"
+      },
+      "size": {
+        "small": "96px",
+        "medium": "128px",
+        "large": "192px",
+        "xlarge": "288px",
+        "huge": "384px"
+      }
+    },
+    "digital": {
+      "text": {
+        "xsmall": {
+          "size": "13.333333333333334px",
+          "height": 1.5
+        },
+        "small": {
+          "size": "18.666666666666668px",
+          "height": 1.43
+        },
+        "medium": {
+          "size": "24px",
+          "height": 1.375
+        },
+        "large": {
+          "size": "29.333333333333332px",
+          "height": 1.167
+        },
+        "xlarge": {
+          "size": "34.666666666666664px",
+          "height": 1.1875
+        },
+        "xxlarge": {
+          "size": "45.33333333333333px",
+          "height": 1.125
+        }
+      }
+    }
+  },
+  "heading": {
+    "level": {
+      "1": {
+        "small": {
+          "size": "45px",
+          "height": "53px",
+          "maxWidth": "1451px"
+        },
+        "medium": {
+          "size": "67px",
+          "height": "75px",
+          "maxWidth": "2133px"
+        },
+        "large": {
+          "size": "109px",
+          "height": "117px",
+          "maxWidth": "3499px"
+        },
+        "xlarge": {
+          "size": "152px",
+          "height": "160px",
+          "maxWidth": "4864px"
+        }
+      },
+      "2": {
+        "small": {
+          "size": "40px",
+          "height": "48px",
+          "maxWidth": "1280px"
+        },
+        "medium": {
+          "size": "56px",
+          "height": "64px",
+          "maxWidth": "1792px"
+        },
+        "large": {
+          "size": "72px",
+          "height": "80px",
+          "maxWidth": "2304px"
+        },
+        "xlarge": {
+          "size": "88px",
+          "height": "96px",
+          "maxWidth": "2816px"
+        }
+      },
+      "3": {
+        "small": {
+          "size": "35px",
+          "height": "43px",
+          "maxWidth": "1109px"
+        },
+        "medium": {
+          "size": "45px",
+          "height": "53px",
+          "maxWidth": "1451px"
+        },
+        "large": {
+          "size": "56px",
+          "height": "64px",
+          "maxWidth": "1792px"
+        },
+        "xlarge": {
+          "size": "67px",
+          "height": "75px",
+          "maxWidth": "2133px"
+        }
+      },
+      "4": {
+        "small": {
+          "size": "29px",
+          "height": "37px",
+          "maxWidth": "939px"
+        },
+        "medium": {
+          "size": "35px",
+          "height": "43px",
+          "maxWidth": "1109px"
+        },
+        "large": {
+          "size": "40px",
+          "height": "48px",
+          "maxWidth": "1280px"
+        },
+        "xlarge": {
+          "size": "45px",
+          "height": "53px",
+          "maxWidth": "1451px"
+        }
+      },
+      "5": {
+        "small": {
+          "size": "21px",
+          "height": "29px",
+          "maxWidth": "683px"
+        },
+        "medium": {
+          "size": "21px",
+          "height": "29px",
+          "maxWidth": "683px"
+        },
+        "large": {
+          "size": "21px",
+          "height": "29px",
+          "maxWidth": "683px"
+        },
+        "xlarge": {
+          "size": "21px",
+          "height": "29px",
+          "maxWidth": "683px"
+        }
+      },
+      "6": {
+        "small": {
+          "size": "19px",
+          "height": "27px",
+          "maxWidth": "597px"
+        },
+        "medium": {
+          "size": "19px",
+          "height": "27px",
+          "maxWidth": "597px"
+        },
+        "large": {
+          "size": "19px",
+          "height": "27px",
+          "maxWidth": "597px"
+        },
+        "xlarge": {
+          "size": "19px",
+          "height": "27px",
+          "maxWidth": "597px"
+        }
+      }
+    }
+  },
+  "paragraph": {
+    "small": {
+      "size": "21px",
+      "height": "29px",
+      "maxWidth": "683px"
+    },
+    "medium": {
+      "size": "24px",
+      "height": "32px",
+      "maxWidth": "768px"
+    },
+    "large": {
+      "size": "29px",
+      "height": "37px",
+      "maxWidth": "939px"
+    },
+    "xlarge": {
+      "size": "35px",
+      "height": "43px",
+      "maxWidth": "1109px"
+    },
+    "xxlarge": {
+      "size": "45px",
+      "height": "53px",
+      "maxWidth": "1451px"
+    }
+  },
+  "radioButton": {
+    "size": "32px"
+  },
+  "text": {
+    "xsmall": {
+      "size": "19px",
+      "height": "27px",
+      "maxWidth": "597px"
+    },
+    "small": {
+      "size": "21px",
+      "height": "29px",
+      "maxWidth": "683px"
+    },
+    "medium": {
+      "size": "24px",
+      "height": "32px",
+      "maxWidth": "768px"
+    },
+    "large": {
+      "size": "29px",
+      "height": "37px",
+      "maxWidth": "939px"
+    },
+    "xlarge": {
+      "size": "35px",
+      "height": "43px",
+      "maxWidth": "1109px"
+    },
+    "xxlarge": {
+      "size": "45px",
+      "height": "53px",
+      "maxWidth": "1451px"
+    }
+  },
+  "layer": {
+    "background": {
+      "dark": "#111111",
+      "light": "#FFFFFF"
+    }
+  }
+}
