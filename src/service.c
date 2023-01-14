@@ -155,7 +155,7 @@ bool method_status(LSHandle *sh, LSMessage *message, void *data) {
 		return false;
 	}
 
-	jobject_set(jobj, j_cstr_to_buffer("returnValue"), jboolean_create(TRUE));
+	jobject_set(jobj, j_cstr_to_buffer("returnValue"), jboolean_create(getuid() == 0));
 	jobject_set(jobj, j_cstr_to_buffer("running"), jboolean_create(server_p->running));
 	jobject_set(jobj, j_cstr_to_buffer("activeClients"), jnumber_create_i32(server_p->active_clients));
 
