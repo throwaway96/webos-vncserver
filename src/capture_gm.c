@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <gm.h>
 
 #include "capture.h"

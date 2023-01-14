@@ -1,10 +1,16 @@
 #include <stdint.h>
 #include <pbnjson.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include "service.h"
 #include "log.h"
 
 #define SERVICE_NAME "org.webosbrew.vncserver.service"
+
+#define AUTOSTART_SYMLINK_DIR "/var/lib/webosbrew/init.d"
+#define AUTOSTART_SYMLINK_PATH AUTOSTART_SYMLINK_DIR "/webos-vncserver"
+#define AUTOSTART_SCRIPT_PATH "/media/developer/apps/usr/palm/services/org.webosbrew.vncserver.service/autostart.sh"
 
 server_t* server_p;
 settings_t* settings_p;
@@ -99,6 +105,20 @@ bool method_configure(LSHandle *sh, LSMessage *message, void *data) {
 	if (jis_null(jobj)) {
 		j_release(&jobj);
 		return false;
+	}
+
+	if (settings_p->autostart) {
+		// While we generally are guaranteed to have /var/lib/webosbrew, it's
+		// not the case with /var/lib/webosbrew/init.d...
+		mkdir(AUTOSTART_SYMLINK_DIR, 0755);
+
+		if (symlink(AUTOSTART_SCRIPT_PATH, AUTOSTART_SYMLINK_PATH) != 0 && errno != EEXIST) {
+			WARN("Autostart script creation failed: %s", strerror(errno));
+		}
+	} else {
+		if (unlink(AUTOSTART_SYMLINK_PATH) != 0 && errno != ENOENT) {
+			WARN("Autostart script removal failed: %s", strerror(errno));
+		}
 	}
 
 	if (was_running) {

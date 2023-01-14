@@ -14,6 +14,8 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/service)
 configure_file("${CMAKE_SOURCE_DIR}/services.json" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/services.json" COPYONLY)
 configure_file("${CMAKE_SOURCE_DIR}/autostart.sh" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/autostart.sh" COPYONLY)
 configure_file("$ENV{STAGING_DIR}/usr/lib/libjpeg.so.8.2.2" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libjpeg.so.8" COPYONLY)
+configure_file("$ENV{STAGING_DIR}/usr/lib/libssl.so.1.1" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libssl.so.1.1" COPYONLY)
+configure_file("$ENV{STAGING_DIR}/usr/lib/libcrypto.so.1.1" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libcrypto.so.1.1" COPYONLY)
 
 find_package(PkgConfig REQUIRED)
 include(FindPkgConfig)

@@ -6,7 +6,7 @@
 #include "settings.h"
 
 typedef struct _capture_backend {
-	char* name;
+	const char* name;
 	int (*init)(uint32_t width, uint32_t height);
 	int (*execute)(uint8_t* target, uint32_t size);
 	int (*destroy)(void);
