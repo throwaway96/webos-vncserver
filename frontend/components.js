@@ -51,12 +51,12 @@ export function ExpandableInput({
     >
       {expanded ? (
         <input
-          type={type}
+          type={type === "password" ? "text" : type}
           value={value}
           ref={inputRef}
           onChange={onChange}
           onKeyDown={(evt) => {
-            if (evt.which === 13) {
+            if (evt.which === 13 || evt.which == 461) {
               setExpanded(false);
               evt.preventDefault();
               evt.stopPropagation();
@@ -66,7 +66,9 @@ export function ExpandableInput({
           {...props}
         />
       ) : (
-        <div className="inner">{value}</div>
+        <div className="inner">
+          {type === "password" ? value.replace(/./g, "•") : value}
+        </div>
       )}
     </Item>
   );

@@ -101,7 +101,7 @@ export function App() {
     }
   }, []);
 
-  async function applyConfiguration() {
+  async function saveSettings() {
     try {
       await lunaCall("luna://org.webosbrew.vncserver.service/configure", {
         width,
@@ -165,6 +165,7 @@ export function App() {
         />
         <ExpandableInput
           label="Password"
+          type="password"
           value={password}
           onChange={(evt) => setPassword(evt.target.value)}
         />
@@ -173,7 +174,7 @@ export function App() {
           label="Autostart"
           onClick={() => setAutostart(!autostart)}
         />
-        <Item label="Apply" onClick={() => applyConfiguration()} />
+        <Item label="Save settings" onClick={() => saveSettings()} />
         <Item
           label="Restart service"
           onClick={async () => {
