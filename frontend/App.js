@@ -16,6 +16,22 @@ function lunaCall(uri, parameters) {
   });
 }
 
+const LoadingOverlay = () => (
+  <div class="loading-overlay">
+    <div class="lds-grid">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+);
+
 export function App() {
   const [loading, setLoading] = React.useState(true);
   const [statusText, setStatusText] = React.useState("Starting up...");
@@ -24,7 +40,7 @@ export function App() {
   const [framerate, setFramerate] = React.useState("");
   const [width, setWidth] = React.useState("");
   const [height, setHeight] = React.useState("");
-  const [autostart, setAutostart] = React.useState(true);
+  const [autostart, setAutostart] = React.useState(false);
 
   const [running, setRunning] = React.useState(null);
   const [activeClients, setActiveClients] = React.useState(0);
@@ -123,6 +139,7 @@ export function App() {
         )}
       </h1>
       <div className="half">
+        {loading ? <LoadingOverlay /> : null}
         <SwitchItem
           label="Running"
           checked={running}
@@ -151,10 +168,19 @@ export function App() {
           value={password}
           onChange={(evt) => setPassword(evt.target.value)}
         />
-        <Item label="Autostart" onClick={() => setAutostart(!autostart)}>
-          <div className="inner">{autostart ? "Enabled" : "Disabled"}</div>
-        </Item>
+        <SwitchItem
+          checked={autostart}
+          label="Autostart"
+          onClick={() => setAutostart(!autostart)}
+        />
         <Item label="Apply" onClick={() => applyConfiguration()} />
+        <Item
+          label="Restart service"
+          onClick={async () => {
+            lunaCall("luna://org.webosbrew.vncserver.service/quit", {});
+            log("Service has been stopped.");
+          }}
+        />
       </div>
       <div className="half">
         <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>

@@ -14,6 +14,7 @@
 
 server_t* server_p;
 settings_t* settings_p;
+GMainLoop* loop_p;
 
 bool method_start(LSHandle *sh, LSMessage *message, void *data) {
 	int ret;
@@ -169,11 +170,32 @@ bool method_status(LSHandle *sh, LSMessage *message, void *data) {
 	return true;
 }
 
+bool method_quit(LSHandle *sh, LSMessage *message, void *data) {
+	LSError lserror;
+	LSErrorInit(&lserror);
+
+	jvalue_ref jobj = jobject_create();
+	if (jis_null(jobj)) {
+		j_release(&jobj);
+		return false;
+	}
+
+	jobject_set(jobj, j_cstr_to_buffer("returnValue"), jboolean_create(TRUE));
+
+	LSMessageReply(sh, message, jvalue_tostring_simple(jobj), &lserror);
+	j_release(&jobj);
+
+	g_main_loop_quit(loop_p);
+
+	return true;
+}
+
 LSMethod service_methods[] = {
 	{"start", method_start},
 	{"stop", method_stop},
 	{"configure", method_configure},
 	{"status", method_status},
+	{"quit", method_quit},
 	{0, 0},
 };
 
@@ -197,6 +219,7 @@ int service_init(GMainLoop* loop, server_t* server, settings_t* settings) {
 
 	server_p = server;
 	settings_p = settings;
+	loop_p = loop;
 
 	return 0;
 }
