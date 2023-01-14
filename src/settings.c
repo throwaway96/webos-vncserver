@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "settings.h"
+#include "log.h"
 
 int settings_load_json(settings_t* settings_p, jvalue_ref parsed) {
 	jvalue_ref value;
@@ -45,7 +46,7 @@ int settings_load_file(settings_t* settings, char* source) {
 	fclose(f);
 	json[fsize] = 0;
 
-	fprintf(stderr, "config [ %s ]\n", json);
+	DBG("config [ %s ]", json);
 
 	jschema_info_init (&schema, jschema_all(), NULL, NULL);
 	parsed = jdom_parse(j_cstr_to_buffer(json), DOMOPT_NOOPT, &schema);

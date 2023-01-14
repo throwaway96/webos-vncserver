@@ -13,6 +13,13 @@ void int_handler(int dummy) {
 int main (int argc, char** argv) {
 	int ret;
 
+	log_init();
+
+	if (getenv("VNCSERVER_DEBUG")) {
+		INFO("Enabling verbose logging");
+		log_set_level(Debug);
+	}
+
 	server_t server;
 	server.active_clients = 0;
 	server.running = false;
@@ -26,8 +33,6 @@ int main (int argc, char** argv) {
 	settings.password = strdup("password");
 
 	INFO("Config load result: %d", settings_load_file(&settings, SETTINGS_PERSISTENCE_PATH));
-
-	log_init();
 
 	INFO("Starting up service...");
 

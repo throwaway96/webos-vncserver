@@ -27,7 +27,8 @@ unsigned int nativeheight = 1080;
 
 static gboolean server_frame_handler(gpointer data) {
 	server_t* server = (server_t*) data;
-	return server->running && server_update(data) == 0;
+   	server_update(data);
+	return server->running;
 }
 
 int capture_backend_load(capture_backend_t* backend, const char* name) {

@@ -39,6 +39,7 @@ add_executable(webos-vncserver
     src/uinput.c
     src/log.c
 )
+set_property(TARGET webos-vncserver PROPERTY ENABLE_EXPORTS 1)
 target_link_libraries(webos-vncserver im vncserver pthread z png jpeg ssl crypto dl ${LS2_LDFLAGS} ${PBNJSON_LDFLAGS} ${GLIB2_LDFLAGS} ${PMLOG_LDFLAGS} rt)
 
 set_target_properties(webos-vncserver PROPERTIES

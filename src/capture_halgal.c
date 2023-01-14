@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <string.h>
+#include <errno.h>
 #include <fcntl.h>
 #include <sys/mman.h>
 
 #include <halgal.h>
 
 #include "capture.h"
+#include "log.h"
 
 HAL_GAL_SURFACE surface_info;
 int gfx_fd;
@@ -15,24 +17,24 @@ int capture_init(uint32_t width, uint32_t height) {
 	int ret;
 
 	if ((ret = HAL_GAL_Init()) != 0) {
-		fprintf(stderr, "Unable to initialize HAL_GAL: %08x\n", ret);
+		ERR("Unable to initialize HAL_GAL: %08x", ret);
 		return -2;
 	}
 
 	if ((ret = HAL_GAL_CreateSurface(width, height, 0, &surface_info)) != 0) {
-		fprintf(stderr, "HAL_GAL_CreateSurface failed: %08x", ret);
+		ERR("HAL_GAL_CreateSurface failed: %08x", ret);
 		return -3;
 	}
 
 	// Attempt one frame capture to verify this backend works properly
 	if ((ret = HAL_GAL_CaptureFrameBuffer(&surface_info)) != 0) {
-		fprintf(stderr, "HAL_GAL_CaptureFrameBuffer failed: %d\n", ret);
+		ERR("HAL_GAL_CaptureFrameBuffer failed: %d", ret);
 		return -5;
 	}
 
 	gfx_fd = open("/dev/gfx",2);
 	if (gfx_fd < 0) {
-		perror("/dev/gfx open failed");
+		ERR("/dev/gfx open failed: %s", strerror(errno));
 		return -4;
 	}
 
@@ -50,7 +52,7 @@ int capture_init(uint32_t width, uint32_t height) {
 int capture_execute(uint8_t* target, uint32_t size) {
 	int ret;
 	if ((ret = HAL_GAL_CaptureFrameBuffer(&surface_info)) != 0) {
-		fprintf(stderr, "HAL_GAL_CaptureFrameBuffer failed: %d\n", ret);
+		ERR("HAL_GAL_CaptureFrameBuffer failed: %d", ret);
 		return -5;
 	}
 
