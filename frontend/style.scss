@@ -1,5 +1,24 @@
 @import 'flexbox.scss';
 
+
+@font-face {
+    font-family: "Museo Sans";
+    src: local("Museo Sans Bold"), local("Moon Museo Sans Bold");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "Museo Sans";
+    src: local("Museo Sans Medium"), local("Moon Museo Sans Medium");
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Museo Sans";
+    src: local("Museo Sans Light"), local("Moon Museo Sans Light");
+    font-weight: lighter;
+}
+
 #app {
     --spatial-navigation-contain: contain;
     --spatial-navigation-function: grid;
@@ -7,11 +26,25 @@
     box-sizing: border-box;
 }
 
+h1.header {
+    margin: 0.5rem;
+    padding: 0.5rem;
+    margin-bottom: 0;
+    border-bottom: 0.2rem solid #444;
+}
+
+h1.header small {
+    float: right;
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
 body, html {
     font-size: 24px;
-    font-family: "Moonstone", "Cantarell", sans-serif;
+    font-family: "Museo Sans", "Cantarell", sans-serif;
     margin: 0;
     padding: 0;
+    color: #a6a6a6;
 }
 
 input {
@@ -22,12 +55,18 @@ input {
     height: 2.5rem;
     line-height: 3.5rem;
     font-weight: 600;
+    font-family: "Museo Sans", "Cantarell", sans-serif;
+    // font-family: "Museo SansDemiBold", "Cantarell", sans-serif;
     padding: 0.25rem 1.0rem;
 }
 
 input:focus /*, input:focus-visible*/ {
     background: white;
     outline: none;
+}
+
+.disabled {
+    opacity: 0.6;
 }
 
 button {
@@ -39,6 +78,8 @@ button {
     color: #ccc;
     border-radius: 0.125rem;
     font-weight: 600;
+    font-family: "Museo Sans", "Cantarell", sans-serif;
+    // font-family: "Museo SansDemiBold", "Cantarell", sans-serif;
 }
 
 button:focus /*, button:focus-visible*/ {
@@ -51,6 +92,8 @@ button:focus /*, button:focus-visible*/ {
     padding: 0.125rem 0.375rem;
     font-size: 1.375rem;
     line-height: 2.25rem;
+    font-weight: 700;
+    // font-family: "Museo SansBold", "Museo Sans", "Cantarell", sans-serif;
     margin: 1px; // spatial-navigation-polyfill bug workaround
 }
 
@@ -60,12 +103,46 @@ button:focus /*, button:focus-visible*/ {
     color: white;
 }
 
-.item .inner {
+.item > .inner {
     font-weight: 300;
+    // font-family: "Museo SansLight", "Museo Sans", "Cantarell", sans-serif;
     margin-top: -0.375rem;
     padding-bottom: 0.375rem;
     font-size: 1.125rem;
     line-height: 1.5rem;
+    min-height: 1.5rem;
+}
+
+.switch {
+    width: 2em;
+    height: 1em;
+    background: #4c4c4c;
+    border-radius: 1em;
+    padding: 0.2em;
+    transition: 0.2s;
+}
+
+.item>.header>.switch {
+    margin-top: 0.3em;
+    float: right;
+    margin-right: 0.5em;
+}
+
+.switch > .inner {
+    background: #a5a5a5;
+    width: 0.6em;
+    height: 0.6em;
+    border-radius: 1em;
+    transition: 0.2s;
+}
+
+.switch.active {
+    background: white;
+}
+
+.switch.active .inner {
+    transform: translateX(0.9em);
+    background: #cf0652;
 }
 
 .half {

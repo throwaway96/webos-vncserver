@@ -1,5 +1,5 @@
 import React from "react";
-import { ExpandableInput, Item } from "./components";
+import { ExpandableInput, Item, SwitchItem } from "./components";
 import "webostvjs/webOSTV";
 
 function lunaCall(uri, parameters) {
@@ -100,53 +100,56 @@ export function App() {
     }
   }
 
+  async function start() {
+    await lunaCall("luna://org.webosbrew.vncserver.service/start", {});
+    await fetchStatus();
+  }
+
+  async function stop() {
+    await lunaCall("luna://org.webosbrew.vncserver.service/stop", {});
+    await fetchStatus();
+  }
+
   return (
     <div>
+      <h1 className="header">
+        VNC Server
+        {loading ? (
+          <small>Loading</small>
+        ) : running ? (
+          <small>Running, active clients: {activeClients}</small>
+        ) : (
+          <small>Idle</small>
+        )}
+      </h1>
       <div className="half">
-        {running === false ? (
-          <button
-            onClick={async () => {
-              await lunaCall(
-                "luna://org.webosbrew.vncserver.service/start",
-                {}
-              );
-              await fetchStatus();
-            }}
-          >
-            Start
-          </button>
-        ) : running === true ? (
-          <button
-            onClick={async () => {
-              await lunaCall("luna://org.webosbrew.vncserver.service/stop", {});
-              await fetchStatus();
-            }}
-          >
-            Stop
-          </button>
-        ) : null}
+        <SwitchItem
+          label="Running"
+          checked={running}
+          onClick={running ? stop : start}
+        />
         <ExpandableInput
           label="Capture width"
+          type="number"
           value={width}
           onChange={(evt) => setWidth(parseInt(evt.target.value))}
         />
         <ExpandableInput
           label="Capture height"
+          type="number"
           value={height}
           onChange={(evt) => setHeight(parseInt(evt.target.value))}
         />
         <ExpandableInput
           label="Framerate limit"
+          type="number"
           value={framerate}
           onChange={(evt) => setFramerate(parseInt(evt.target.value))}
         />
         <ExpandableInput
           label="Password"
           value={password}
-          onChange={(evt) => {
-            console.info(evt);
-            setPassword(evt.target.value);
-          }}
+          onChange={(evt) => setPassword(evt.target.value)}
         />
         <Item label="Autostart" onClick={() => setAutostart(!autostart)}>
           <div className="inner">{autostart ? "Enabled" : "Disabled"}</div>

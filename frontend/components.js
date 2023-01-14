@@ -23,7 +23,13 @@ export const Item = React.forwardRef(
   )
 );
 
-export function ExpandableInput({ label, value, onChange, ...props }) {
+export function ExpandableInput({
+  label,
+  value,
+  type = "text",
+  onChange,
+  ...props
+}) {
   const [expanded, setExpanded] = React.useState(null);
   const inputRef = React.useRef(null);
   const itemRef = React.useRef(null);
@@ -45,7 +51,7 @@ export function ExpandableInput({ label, value, onChange, ...props }) {
     >
       {expanded ? (
         <input
-          type="text"
+          type={type}
           value={value}
           ref={inputRef}
           onChange={onChange}
@@ -65,3 +71,16 @@ export function ExpandableInput({ label, value, onChange, ...props }) {
     </Item>
   );
 }
+
+export const SwitchItem = React.forwardRef(
+  ({ label, checked, ...props }, ref) => (
+    <Item ref={ref} {...props}>
+      <div className="header">
+        <div className={["switch", checked ? "active" : null].join(" ")}>
+          <div className="inner"></div>
+        </div>
+        {label}
+      </div>
+    </Item>
+  )
+);
