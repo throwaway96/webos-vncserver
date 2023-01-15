@@ -1,8 +1,9 @@
 {
   "type": "web",
-  "vendor": "webosbrew",
+  "vendor": "webosbrew/informatic",
   "main": "index.html",
   "title": "VNCServer",
+  "appDescription": "webOS VNC Server",
   "icon": "icon.png",
   "largeIcon": "largeIcon.png",
   "iconColor": "#ffb80d",
