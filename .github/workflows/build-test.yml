@@ -45,13 +45,13 @@ jobs:
         run: npm run package
 
       - name: Compatibility Check
-        run: webosbrew-ipk-compat-checker --markdown --github-emoji --quiet *.ipk >> $GITHUB_STEP_SUMMARY
+        run: "webosbrew-ipk-compat-checker --markdown --github-emoji --quiet *.ipk >> $GITHUB_STEP_SUMMARY"
 
       - name: Add Commit Hash Suffix
         shell: bash
-        run: for file in *.ipk ; do mv $file ${file//_all/-${GITHUB_SHA:0:8}_all} ; done
+        run: "for file in *.ipk ; do mv $file ${file//_all/-${GITHUB_SHA:0:8}_all} ; done"
 
       - uses: actions/upload-artifact@v3
         with:
           name: webos-snapshot
-          path: dist/*.ipk
+          path: "*.ipk"
