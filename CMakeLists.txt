@@ -24,6 +24,9 @@ configure_file("${SSL_LIB}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libssl.so.1.1" CO
 find_library(CRYPTO_LIB NAMES libcrypto.so.1.1)
 configure_file("${CRYPTO_LIB}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libcrypto.so.1.1" COPYONLY)
 
+find_library(SSL_LIB NAMES libatomic.so.1)
+configure_file("${SSL_LIB}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libatomic.so.1" COPYONLY)
+
 find_package(PkgConfig REQUIRED)
 include(FindPkgConfig)
 
