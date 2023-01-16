@@ -39,6 +39,7 @@ by `ls-hubd` when called by frontend.
   option to command line
 - webOS limited network throughput (100mbps over ethernet) requires use of JPEG,
   make sure your VNC clients supports it.
+- All configuration changes cause client disconnects.
 
 ## Keybindings
 

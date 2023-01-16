@@ -5,22 +5,22 @@ add_subdirectory(prebuilt)
 add_subdirectory(tv-native-apis)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/service)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/service)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/service/lib)
 configure_file("${CMAKE_SOURCE_DIR}/services.json" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/services.json" COPYONLY)
 configure_file("${CMAKE_SOURCE_DIR}/autostart.sh" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/autostart.sh" COPYONLY)
 
 # Copy required dependencies
 find_library(JPEG_LIB NAMES libjpeg.so.8)
-configure_file("${JPEG_LIB}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libjpeg.so.8" COPYONLY)
+configure_file("${JPEG_LIB}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/lib/libjpeg.so.8" COPYONLY)
 
 find_library(SSL_LIB NAMES libssl.so.1.1)
-configure_file("${SSL_LIB}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libssl.so.1.1" COPYONLY)
+configure_file("${SSL_LIB}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/lib/libssl.so.1.1" COPYONLY)
 
 find_library(CRYPTO_LIB NAMES libcrypto.so.1.1)
-configure_file("${CRYPTO_LIB}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libcrypto.so.1.1" COPYONLY)
+configure_file("${CRYPTO_LIB}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/lib/libcrypto.so.1.1" COPYONLY)
 
 find_library(SSL_LIB NAMES libatomic.so.1)
-configure_file("${SSL_LIB}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libatomic.so.1" COPYONLY)
+configure_file("${SSL_LIB}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/lib/libatomic.so.1" COPYONLY)
 
 find_package(PkgConfig REQUIRED)
 include(FindPkgConfig)
