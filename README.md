@@ -37,8 +37,8 @@ by `ls-hubd` when called by frontend.
   using VNC.
 - `tigervnc`: "React too big" error can be alleviated by adding `Autoselect=0`
   option to command line
-- webOS limited network throughput (100mbps over ethernet) requires use of JPEG
-  - make sure your VNC clients supports it.
+- webOS limited network throughput (100mbps over ethernet) requires use of JPEG,
+  make sure your VNC clients supports it.
 
 ## Keybindings
 
