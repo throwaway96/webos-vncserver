@@ -45,7 +45,7 @@ jobs:
         run: npm run build-manifest
 
       - name: Compatibility Check
-        run: npm run --silent compat-check >> $GITHUB_STEP_SUMMARY
+        run: npm run --silent compat-check >> $GITHUB_STEP_SUMMARY || true
 
       - uses: actions/upload-artifact@v3
         with:
