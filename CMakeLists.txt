@@ -4,11 +4,6 @@ project (webos-vncserver C)
 add_subdirectory(prebuilt)
 add_subdirectory(tv-native-apis)
 
-add_executable(vramvnc src/vramvnc.c src/uinput.c)
-target_link_libraries(vramvnc im vncserver pthread z png jpeg ssl crypto gm rt)
-
-# ------
-
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/service)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/service)
 configure_file("${CMAKE_SOURCE_DIR}/services.json" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/services.json" COPYONLY)

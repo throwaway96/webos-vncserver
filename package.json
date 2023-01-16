@@ -27,7 +27,7 @@
     "@babel/core": "^7.14.3",
     "@babel/preset-env": "^7.14.4",
     "@babel/preset-react": "^7.18.6",
-    "@webosbrew/compat-checker": "^1.2.9",
+    "@webosbrew/compat-checker": "^1.3.0",
     "@webosbrew/pub-utils": "^1.0.3",
     "@webosose/ares-cli": "^2.2.0",
     "add-asset-webpack-plugin": "^2.0.1",
