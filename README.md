@@ -31,10 +31,13 @@ by `ls-hubd` when called by frontend.
 
 ## Caveats
 - This does not capture any hardware-accelerated video surfaces, only the UI layers.
-- `halgal`-based capture (webOS 5.x+) may conflict with built-in webOS capture
-  infrastructure on some platforms. If video display hangs or crashes, try
-  running: `pkill -f captureservice` before starting the service up/connecting
-  using VNC.
+- Capture may conflict with other applications or webOS services.
+  If video display hangs or crashes, try stopping relevant services (eg. via
+  `pkill -f captureservice`) before starting the service up/connecting using VNC.
+  Notable conflicting services:
+    - `piccap`: `hyperion-webos`
+    - webOS 5.x+: `captureservice`
+
 - `tigervnc`: "React too big" error can be alleviated by adding `Autoselect=0`
   option to command line
 - webOS limited network throughput (100mbps over ethernet) requires use of JPEG,
