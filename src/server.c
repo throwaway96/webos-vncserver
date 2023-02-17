@@ -118,7 +118,11 @@ int server_start(server_t* server, settings_t* settings) {
 	rfbLogEnable(0);
 
 	rfbScreenInfoPtr screen = rfbGetScreen(NULL, NULL, settings->width, settings->height, 8, 3, bpp);
-	assert(screen != NULL);
+
+	if (screen == NULL) {
+		ERR("rfbGetScreen() initialization failed");
+		return -3;
+	}
 
 	server->active_clients = 0;
 	server->settings = settings;
@@ -127,9 +131,10 @@ int server_start(server_t* server, settings_t* settings) {
 
 	screen->newClientHook = server_client_incoming;
 
-	assert(initialize_uinput() >= 0);
-
-	// signal(SIGINT, intHandler);
+	if ((ret = initialize_uinput()) != 0) {
+		ERR("uinput initialization failed: %d", ret);
+		return -4;
+	}
 
 	// switch red and blue channels
 	int tmp = screen->serverFormat.redShift;

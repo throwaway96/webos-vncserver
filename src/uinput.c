@@ -25,10 +25,6 @@ int initialize_uinput(void)
 	char *s;
 	struct uinput_user_dev udev;
 
-	//if (fd >= 0) {
-	//	shutdown_uinput();
-	//}
-
 	fd = open("/dev/uinput", O_WRONLY | O_NDELAY);
 
 	if (fd < 0) {
@@ -64,25 +60,19 @@ int initialize_uinput(void)
 	ioctl(fd, UI_SET_KEYBIT, BTN_BACK);
 	ioctl(fd, UI_SET_KEYBIT, KEY_PREVIOUS);
 
+	ioctl(fd, UI_SET_KEYBIT, BTN_TOUCH);
 
-	//if (uinput_touchscreen) {
-		ioctl(fd, UI_SET_KEYBIT, BTN_TOUCH);
-	//}
-	//if (uinput_touchscreen || uinput_abs) {
-		ioctl(fd, UI_SET_EVBIT, EV_ABS);
-		ioctl(fd, UI_SET_ABSBIT, ABS_X);
-		ioctl(fd, UI_SET_ABSBIT, ABS_Y);
-		udev.absmin[ABS_X] = 0;
-		udev.absmax[ABS_X] = 1920; // XXX: hardcoded
-		udev.absfuzz[ABS_X] = 0;
-		udev.absflat[ABS_X] = 0;
-		udev.absmin[ABS_Y] = 0;
-		udev.absmax[ABS_Y] = 1080; // XXX: hardcoded
-		udev.absfuzz[ABS_Y] = 0;
-		udev.absflat[ABS_Y] = 0;
-		//set_uinput_accel_xy(1.0, 1.0);
-	//}
-
+	ioctl(fd, UI_SET_EVBIT, EV_ABS);
+	ioctl(fd, UI_SET_ABSBIT, ABS_X);
+	ioctl(fd, UI_SET_ABSBIT, ABS_Y);
+	udev.absmin[ABS_X] = 0;
+	udev.absmax[ABS_X] = 1920; // XXX: hardcoded
+	udev.absfuzz[ABS_X] = 0;
+	udev.absflat[ABS_X] = 0;
+	udev.absmin[ABS_Y] = 0;
+	udev.absmax[ABS_Y] = 1080; // XXX: hardcoded
+	udev.absfuzz[ABS_Y] = 0;
+	udev.absflat[ABS_Y] = 0;
 
 	write(fd, &udev, sizeof(udev));
 
