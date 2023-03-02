@@ -28,8 +28,8 @@ int main (int argc, char** argv) {
 	loop = g_main_loop_new(NULL, FALSE);
 
 	settings.framerate = 30;
-	settings.width = 1920/4;
-	settings.height = 1080/4;
+	settings.width = 1920/2;
+	settings.height = 1080/2;
 	settings.password = strdup("password");
 
 	INFO("Config load result: %d", settings_load_file(&settings, SETTINGS_PERSISTENCE_PATH));
