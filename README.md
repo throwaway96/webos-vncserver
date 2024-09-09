@@ -83,8 +83,8 @@ luna-send -n 1 'luna://org.webosbrew.vncserver.service/start' '{}'
 
 # Building
 ## Service
-To cross-compile for WebOS, you will [need an
-toolchain](https://github.com/openlgtv/buildroot-nc4/releases/tag/webos-c592d84).
+To cross-compile for WebOS, you will [need a
+toolchain](https://github.com/openlgtv/buildroot-nc4/releases/tag/webos-b17b4cc).
 
 ```sh
 cmake -S . -B build && cmake --build build --target webos-vncserver --target capture_gm --target capture_halgal
