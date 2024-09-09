@@ -77,8 +77,8 @@ Service can be controlled using Luna service bus calls:
 
 As usual - all these commands can be issued using `luna-send` command like so:
 ```sh
-luna-send -n 1 'luna://org.webosbrew.hbchannel.service/configure' '{"password": "test"}'
-luna-send -n 1 'luna://org.webosbrew.hbchannel.service/start' '{}'
+luna-send -n 1 'luna://org.webosbrew.vncserver.service/configure' '{"password": "test"}'
+luna-send -n 1 'luna://org.webosbrew.vncserver.service/start' '{}'
 ```
 
 # Building
